@@ -36,6 +36,11 @@ erDiagram
         Buttom Request_Ride
         Buttom Driver_Status "Editable"
     }
+    Login ||--|{ Driver : as
+    User{
+        Display Driver_html
+        Buttom Personal_and_Vehicle_Info "Editable"
+    }
 
     User ||--|{ RideRequesting : Rider_Owner_Start_Requesting
     RideRequesting{
@@ -60,4 +65,5 @@ erDiagram
         Display Ride_status_Window "Pop up a Window"
 
     }
+    User ||--|{ RideSharerRequesting : Ride_Sharer_Start_Requesting
 ```
