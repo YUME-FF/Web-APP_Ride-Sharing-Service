@@ -5,12 +5,12 @@ from django.http import HttpResponse
 
 
 def home(request):
-    return HttpResponse("Hello, world. You're at the home.")
-def logIn(request):
-    return HttpResponse("This is Log in page")
-def logOut(request):
-    return HttpResponse("This is Log out page")
+    return render(request, 'home.html')
+def login(request):
+    return render(request, 'login.html')
+def logout(request):
+    return render(request, 'logout.html')
 def profile(request):
-    return HttpResponse("This is profile page")
+    return render(request, 'profile.html')
 def createAccount(request):
-    return HttpResponse("This is create account page")
+    return render(request, 'createAccount.html')
