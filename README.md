@@ -47,12 +47,12 @@ erDiagram
         Blank Special_Request "Optional and free-text fields"
         Choose Share_Or_Not "joined by other ride sharers"
         Choose Confirm "Start requesting"
-        Choose Edit "Unaccessable after being confirmed by drivers"
     }
     RideRequesting ||--|{ ConfirmRideRequesting : Confirm
     ConfirmRideRequesting |o--|{ RideRequesting : Edit
     ConfirmRideRequesting{
         Display Open_ride_details
+        Choose Edit "Unaccessable after being confirmed by drivers"
     }
     ConfirmRideRequesting ||--|{ Ride : RideOwner_Confirm
     Ride{
