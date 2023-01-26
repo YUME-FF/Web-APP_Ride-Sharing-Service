@@ -2,6 +2,7 @@
 
 
 Go to ./docker-deploy/web-app/Ride_Sharing_Service/
+
 Start your server by
 ```
 python3 manage.py runserver 0:8000
