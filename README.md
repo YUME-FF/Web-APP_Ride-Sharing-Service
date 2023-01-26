@@ -13,15 +13,12 @@ Then go to http://vcm-30579.vm.duke.edu:8000/ or http://vcm-30900.vm.duke.edu:80
 
 # Project Overview
 ```mermaid
-  erDiagram
+erDiagram
 
     Guest ||--|{ Login : can
     Guest ||--|{ Logout : can
-    Login ||--|{ User : as
-    User ||--|{ Ride : request
-
     Guest {
-        Dispaly home_html
+        Display home_html
         Buttom Login
         Buttom CreateAccount 
     }
@@ -31,27 +28,36 @@ Then go to http://vcm-30579.vm.duke.edu:8000/ or http://vcm-30900.vm.duke.edu:80
         Error LoginFailure "User can choose to create an account."
         Buttom CreateAccount
     }
+
+    Login ||--|{ User : as
     User{
         Display home_html
         Buttom Personal_and_Vehicle_Info "Editable"
         Buttom Request_Ride
         Buttom Driver_Status "Editable"
     }
-    Ride{
-        Display InfoFilling_html
+
+    User ||--|{ RideRequesting : Rider_Owner_Start_Requesting
+    RideRequesting{
+        Display InfoFilling_html "Or just a Window"
         Blank Destination_Address
         Blank Arrial_Date_Time
         Blank Passenger_Number
         Blank Vehicle_Type "Optional"
         Blank Special_Request "Optional and free-text fields"
         Choose Share_Or_Not "joined by other ride sharers"
-        Choose Save "Save info"
+        Choose Confirm "Start requesting"
         Choose Edit "Unaccessable after being confirmed by drivers"
+    }
+    RideRequesting ||--|{ ConfirmRideRequesting : Confirm
+    ConfirmRideRequesting |o--|{ RideRequesting : Edit
+    ConfirmRideRequesting{
+        Display Open_ride_details
+    }
+    ConfirmRideRequesting ||--|{ Ride : RideOwner_Confirm
+    Ride{
+        Display home_html
+        Display Ride_status_Window "Pop up a Window"
 
     }
-    
-
-
-
-
 ```
