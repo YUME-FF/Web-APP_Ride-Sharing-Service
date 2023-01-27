@@ -45,7 +45,7 @@ erDiagram
     Register_as_Driver ||--|{ User : Back_to
     User{
         Display home_html
-        Buttom Personal_Info "Editable"
+        Buttom Profile "Editable"
         Buttom Request_Ride
         Buttom Search_for_Open_Ride
         Buttom View_Ride_Status "If exists on-going ride, show it."
