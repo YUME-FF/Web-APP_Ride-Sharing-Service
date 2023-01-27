@@ -178,6 +178,6 @@ erDiagram
         Display Special_Vehicle_Info "Optional"
         Display Info "Vehicle"
     }
-    Ride_Status_for_Driver ||--|{ TripFinish : complete
-    Ride_Status_for_Passenger ||--|{ TripFinish : complete
+    Ride_Status_for_Driver ||--|{ User : completeTrip
+    Ride_Status_for_Passenger ||--|{ User : completeTrip
 ```
