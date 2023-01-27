@@ -48,6 +48,7 @@ erDiagram
         Buttom Personal_Info "Editable"
         Buttom Request_Ride
         Buttom Search_for_Open_Ride
+        Buttom View_Ride_Status "If exists on-going ride, show it."
         Buttom Register_as_Driver "Avaliable only not is Driver"
         Buttom Vehicle_Info "Edit Avaliable only is Driver"
         Buttom Driver_status "Edit Avaliable only is Driver"
