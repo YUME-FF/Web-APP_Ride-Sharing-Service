@@ -187,7 +187,7 @@ erDiagram
     }
 ```
 ## Web Deployment
-```
+```mermaid
 stateDiagram-v2
     Guest(Home.html) --> Login.html
     Guest(Home.html) --> CreateAccount.html
