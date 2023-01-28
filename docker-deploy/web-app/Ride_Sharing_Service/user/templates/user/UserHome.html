@@ -1,3 +1,14 @@
+<style>
+    .Choice {
+    background-color: DodgerBlue;
+    color: white;
+    border: 2px solid black;
+    margin: 20px;
+    padding: 15px;
+    height: 100px;
+    width: 30%;
+}
+</style>
 {%extends 'main.html'%}
 
 {%block content%}
@@ -11,10 +22,20 @@
   <p>
      What do you want we do for you?
   </p>
-  <a href="{% url 'Owner' %}">Request an Ride</a>
-  <a href="{% url 'Sharer' %}">Search for share</a>
-  <a href="{% url 'UserOrder' %}">Order History</a>
-  <a href="{% url 'DriverRegister' %}">To be a Driver?</a>
-  <a href="{% url 'logout' %}">Logout</a>
+    <div class="Choice">
+        <a href="{% url 'Owner' %}">Request an Ride</a>
+    </div>
+
+    <div class="Choice">
+        <a href="{% url 'Sharer' %}">Search for share</a>
+    </div>
+
+    <div class="Choice">
+        <a href="{% url 'UserOrder' %}">Order History</a>
+    </div>
+
+    <div class="Choice">
+        <a href="{% url 'DriverRegister' %}">To be a Driver?</a>
+    </div>
   
 {%endblock%}

@@ -15,7 +15,7 @@ class Owner(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     #Form should be filled by owner requesting for a ride
     Destination_Address = models.CharField(max_length=100)
-    Arrial_Date_Time = models.DateTimeField(help_text='Format: 2020-01-01 12:00')
+    Arrival_Date_Time = models.DateTimeField(help_text='Format: 2020-01-01 12:00')
     Number_of_Passenger = models.PositiveIntegerField(default=1)
     Vehicle_Type =models.CharField(max_length=20, choices=TYPE_CHOICES, default='--')
     Special_Request = models.CharField(max_length=400, blank=True)
@@ -24,3 +24,14 @@ class Owner(models.Model):
 
     def __str__(self):
         return self.owner
+
+class Sharer(models.Model):
+    sharer = models.ForeignKey(User, on_delete=models.CASCADE)
+    # Form should be filled by sharer searching for a ride
+    Destination_Address = models.CharField(max_length=100)
+    Earliest_Arrival_Time = models.DateTimeField(help_text='Format: 2020-01-01 12:00')
+    Latest_Arrival_Time = models.DateTimeField(help_text='Format: 2020-01-01 13:00')
+    Number_of_Passenger = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.sharer
