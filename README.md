@@ -11,7 +11,13 @@ python3 manage.py runserver 0:8000
 
 Then go to http://vcm-30579.vm.duke.edu:8000/ or http://vcm-30900.vm.duke.edu:8000/
 
+# Table of Contents
+- [Project Overview](#Project-Overview)
+  - [Project Design](#Project-Design)
+  - [Web Deployment](#Web-Deployment)
+
 # Project Overview
+## Project Design
 ```mermaid
 erDiagram
     Guest ||--|{ CreateAccount : can
@@ -178,5 +184,60 @@ erDiagram
         Display Vehicle_Capacity
         Display Special_Vehicle_Info "Optional"
         Display Info "Vehicle"
+    }
+```
+## Web Deployment
+```mermaid
+stateDiagram-v2
+    Guest(Home.html) --> Login.html
+    Guest(Home.html) --> CreateAccount.html
+    CreateAccount.html --> Login.html
+    
+    Login.html --> UserHome.html
+    Login.html --> DriverHome.html
+    UserHome.html --> UserProfile.html
+    UserHome.html --> DriverRegister.html
+    UserHome.html --> UserOrder.html
+    State UserOrder.html {
+        Non_Comleted_Ride
+    }
+
+    UserHome.html --> Owner.html
+    State Owner.html{
+        Owner_InfoForm.html
+    }
+
+    Owner.html --> OwnerList.html
+    OwnerList.html --> Owner.html : Edit Ride
+    State OwnerList.html{
+        Edit_Ride
+        --
+        SharerInfo
+    }
+    
+    UserHome.html --> Sharer.html
+    State Sharer.html{
+        Sharer_InfoForm.html
+    }
+
+    Sharer.html --> SharerList.html
+    State SharerList.html{
+        all_the_possible_rides_you_can_pick
+    }
+
+    UserHome.html --> Logout.html
+    DriverHome.html --> Logout.html
+    
+    DriverHome.html --> DriverProfile.html  
+    DriverHome.html --> Driver.html
+
+    Driver.html --> DriverList.html
+    State DriverList.html{
+        all_the_possible_orders_you_can_pick
+    }
+
+    DriverHome.html --> DriverOrder.html
+    State DriverOrder.html{
+        CompleteButtom
     }
 ```
