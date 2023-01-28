@@ -1,0 +1,20 @@
+{%extends 'main.html'%}
+
+{%block content%}
+
+<h1>Welcome to our Ride-Sharing Service System!</h1>
+
+  <p>
+     Welcome [UserName]!
+  </p>
+  <a href="{% url 'profile' %}">Profile</a>
+  <p>
+     What do you want we do for you?
+  </p>
+  <a href="{% url 'Owner' %}">Request an Ride</a>
+  <a href="{% url 'Sharer' %}">Search for share</a>
+  <a href="{% url 'UserOrder' %}">Order History</a>
+  <a href="{% url 'DriverRegister' %}">To be a Driver?</a>
+  <a href="{% url 'logout' %}">Logout</a>
+  
+{%endblock%}
