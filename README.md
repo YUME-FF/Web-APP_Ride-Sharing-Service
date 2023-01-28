@@ -207,12 +207,12 @@ stateDiagram-v2
         Owner_InfoForm.html
     }
 
-    Owner.html --> OwnerList.html
-    OwnerList.html --> Owner.html : Edit Ride
-    State OwnerList.html{
+    Owner.html --> Owner_List.html
+    Owner_List.html --> Owner.html : Edit Ride
+    State Owner_List.html{
         Edit_Ride
         --
-        SharerInfo
+        OrderHistory
     }
     
     UserHome.html --> Sharer.html
@@ -220,8 +220,8 @@ stateDiagram-v2
         Sharer_InfoForm.html
     }
 
-    Sharer.html --> SharerList.html
-    State SharerList.html{
+    Sharer.html --> SharerSearch_List.html
+    State SharerSearch_List.html{
         all_the_possible_rides_you_can_pick
     }
 
@@ -231,8 +231,8 @@ stateDiagram-v2
     DriverHome.html --> DriverProfile.html  
     DriverHome.html --> Driver.html
 
-    Driver.html --> DriverList.html
-    State DriverList.html{
+    Driver.html --> DriverSearch_List.html
+    State DriverSearch_List.html{
         all_the_possible_orders_you_can_pick
     }
 
