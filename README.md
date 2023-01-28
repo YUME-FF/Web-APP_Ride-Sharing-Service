@@ -189,6 +189,7 @@ erDiagram
 ## Web Deployment
 ```mermaid
 stateDiagram-v2
+
     Guest(Home.html) --> Login.html
     Guest(Home.html) --> CreateAccount.html
     CreateAccount.html --> Login.html
@@ -199,7 +200,7 @@ stateDiagram-v2
     UserHome.html --> DriverRegister.html
     UserHome.html --> UserOrder.html
     State UserOrder.html {
-        OrderHistory
+        History
     }
 
     UserHome.html --> Owner.html
@@ -213,6 +214,8 @@ stateDiagram-v2
         Edit_Ride
         --
         OrderHistory
+        --
+        ShareInfo
     }
     
     UserHome.html --> Sharer.html
