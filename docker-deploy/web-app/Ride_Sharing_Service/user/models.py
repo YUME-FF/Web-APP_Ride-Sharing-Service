@@ -23,7 +23,7 @@ class Owner(models.Model):
     Share_Or_Not = models.BooleanField()
     Max_Share_Num = models.PositiveIntegerField(help_text='If you do not want to share please choose 0', default=0)
 
-    Share_Status = models.CharField(default='Open', max_length=20)
+    Status = models.CharField(default='Ongoing', max_length=20)
     Sharers_Name = models.CharField(default='', max_length=50, blank=True)
 
     Driver_Name = models.CharField(default='', max_length=50, blank=True)
