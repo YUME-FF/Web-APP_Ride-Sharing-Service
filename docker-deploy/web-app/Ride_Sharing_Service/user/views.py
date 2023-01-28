@@ -2,16 +2,16 @@ from django.shortcuts import render
 from .models import Owner, Sharer
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
+
+
 # Create your views here.
 
 def UserHome(request):
     return render(request, 'user/UserHome.html')
 
-def UserOrder(request):
-    return render(request, 'user/UserOrder.html')
-
 def DriverRegister(request):
     return render(request, 'user/DriverRegister.html')
+
 
 class Owner_InfoForm(LoginRequiredMixin, CreateView):
     model = Owner
@@ -21,11 +21,17 @@ class Owner_InfoForm(LoginRequiredMixin, CreateView):
               'Vehicle_Type',
               'Special_Request',
               'Share_Or_Not',
-              'max_share_num']
+              'Max_Share_Num']
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
+
+class OwnerListView(ListView):
+    template_name = 'user/owner_list.html'
+    def get_queryset(self):
+        return Owner.objects.filter(owner=self.request.user).order_by('Arrival_Date_Time')
+
 
 class Sharer_InfoForm(LoginRequiredMixin, CreateView):
     model = Sharer
