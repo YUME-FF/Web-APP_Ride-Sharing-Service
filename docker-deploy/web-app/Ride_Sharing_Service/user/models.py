@@ -30,7 +30,7 @@ class Owner(models.Model):
     Driver_License = models.CharField(default='', max_length=50, blank=True)
 
     def __str__(self):
-        return self.owner
+        return self.Destination_Address
     # Submit --> View ride Status
     def get_absolute_url(self):
         return reverse('OwnerListView')
@@ -45,4 +45,4 @@ class Sharer(models.Model):
     Number_of_Passenger = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return self.sharer
+        return self.Destination_Address
