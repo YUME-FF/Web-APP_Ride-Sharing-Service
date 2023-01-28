@@ -5,7 +5,7 @@
 <h1>Welcome to our Ride-Sharing Service System!</h1>
 
   <p>
-     Welcome [UserName]!
+     Welcome {{request.user}}!
   </p>
   <a href="{% url 'profile' %}">Profile</a>
   <p>

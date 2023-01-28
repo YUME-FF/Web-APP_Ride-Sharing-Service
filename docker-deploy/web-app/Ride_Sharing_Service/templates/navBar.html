@@ -2,6 +2,7 @@
     <h1>LOGO</h1>
 </a>
 {% if request.user.is_authenticated %}
+<p>Hello <a href="{% url 'UserHome' %}">{{request.user}}</a></p>
 <a href="{% url 'logout' %}">Log out</a>
 {% else %}
 <a href="{%url 'login'%}">Log in</a>

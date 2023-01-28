@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
-
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, logout, login
 rooms = [
     {'id':1, 'name':'Lets python'},
@@ -17,16 +17,16 @@ def home(request):
 
 def login(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username = request.POST.get('username').lower()
         password = request.POST.get('password')
         
         user = authenticate(request, username=username, password = password)
         if user is not None:
             django_login(request, user)
-            return redirect('home')
+            return redirect('UserHome')
         else:
             messages.error(request, 'Username or passowrd is not correct')
-    return render(request, 'base/login.html')
+    return render(request, 'base/login.html', {'page':'login'})
 
 def logout(request):
     django_logout(request)
@@ -36,6 +36,17 @@ def logout(request):
 def profile(request):
     return render(request, 'base/profile.html')
 def createAccount(request):
-    return render(request, 'base/createAccount.html')
+    form = UserCreationForm()
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit = False)
+            user.username = user.username.lower()
+            user.save()
+            django_login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'Please enter correct format')
+    return render(request, 'base/login.html',{'form':form})
 def driverRegister(request):
     return render(request, 'base/driverRegister.html')
