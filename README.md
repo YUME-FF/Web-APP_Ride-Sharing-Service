@@ -199,7 +199,7 @@ stateDiagram-v2
     UserHome.html --> DriverRegister.html
     UserHome.html --> UserOrder.html
     State UserOrder.html {
-        Non_Comleted_Ride
+        OrderHistory
     }
 
     UserHome.html --> Owner.html
