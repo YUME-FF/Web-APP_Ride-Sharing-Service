@@ -11,7 +11,7 @@ TYPE_CHOICES = (
     ("--", "--"),
 )
 
-class OwnerForm(models.Model):
+class Owner(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     #Form should be filled by owner requesting for a ride
     Destination_Address = models.CharField(max_length=100)
