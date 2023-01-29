@@ -11,7 +11,7 @@ def UserHome(request):
         context = {'identity':'rider'}
     else:
         context = {'identity':'driver'}
-    return render(request, 'user/UserHome.html', context)
+    return render(request, 'user/UserHome.html',context)
 
 # def DriverRegister(request):
 #     driver = Driver()
