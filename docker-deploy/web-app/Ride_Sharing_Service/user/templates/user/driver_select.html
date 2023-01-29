@@ -1,0 +1,69 @@
+
+<script>
+  function myFunction()
+  {
+    
+    let flag = confirm("Do you want to process this order?");
+    if(flag){
+      window.location.href = "./driverOnProcess";
+    }
+  }
+  </script>
+<style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+{%extends 'main.html'%}
+{% load mathfilters %}
+{%block content%}
+<br>
+    <p>
+        Here are the status of your order.
+    </p>
+<br>
+
+<table id="customers">
+    <thead>
+    <tr>
+        <th>Destination Address</th>
+        <th>Arrival Date Time</th>
+        <th>Number of Passenger</th>
+        <th>Special Request</th>
+        <th>Order Select</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for ride in object_list %}
+    <tr>
+    <td>{{ ride.Destination_Address }}</td>
+    <td>{{ ride.Arrival_Date_Time|date:"m/d/Y P" }}</td>
+    <td>{{ ride.Number_of_Passenger }}</td>
+    <td>{{ ride.Special_Request }}</td>
+    
+    <td><button onclick= "myFunction()">select</button></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

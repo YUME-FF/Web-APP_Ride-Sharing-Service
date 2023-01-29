@@ -21,7 +21,7 @@ class Driver(models.Model):
     def __str__(self):
         return self.Driver_Name
     def get_absolute_url(self):
-        return reverse('UserHome')
+        return reverse('DriverSelect')
     
     
 class Owner(models.Model):

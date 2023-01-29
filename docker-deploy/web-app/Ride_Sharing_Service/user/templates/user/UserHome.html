@@ -31,11 +31,21 @@
     </div>
 
     <div class="Choice">
-        <a href="{% url 'OwnerListView' %}">Order History</a>
+        <a href="{% url 'OwnerListView' %}">As a passenger: Order History</a>
     </div>
-
+{% if identity != 'driver' %}
     <div class="Choice">
         <a href="{% url 'DriverRegister' %}">To be a Driver?</a>
     </div>
-  
+{% endif %}
+{% if identity == 'driver' %}
+    <div class="Choice">
+        <a href="{% url 'DriverSelect' %}">Choose an order to complete </a>
+
+    </div>
+    <div class="Choice">
+
+        <a href="{% url 'DriverOnProcess' %}">Continue your last order </a>
+    </div>
+{% endif %}
 {%endblock%}
