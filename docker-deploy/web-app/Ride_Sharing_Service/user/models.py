@@ -11,7 +11,19 @@ TYPE_CHOICES = (
     ("--", "--"),
 )
 
-
+class Driver(models.Model):
+    driver = models.ForeignKey(User, on_delete=models.CASCADE)
+    Driver_Name = models.CharField(max_length=20)
+    Vehicle_Type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='--')
+    Driver_License = models.CharField(default='', max_length=50)
+    Vehicle_Capacity = models.PositiveIntegerField(default=1)
+    Special_Information = models.CharField(default='',max_length = 100, blank=True)
+    def __str__(self):
+        return self.Driver_Name
+    def get_absolute_url(self):
+        return reverse('UserHome')
+    
+    
 class Owner(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     # Form should be filled by owner requesting for a ride

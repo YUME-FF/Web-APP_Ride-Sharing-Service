@@ -35,6 +35,7 @@ def logout(request):
 
 def profile(request):
     return render(request, 'base/profile.html')
+
 def createAccount(request):
     form = UserCreationForm()
     if request.method == 'POST':
@@ -48,5 +49,5 @@ def createAccount(request):
         else:
             messages.error(request, 'Please enter correct format')
     return render(request, 'base/login.html',{'form':form})
-def driverRegister(request):
-    return render(request, 'base/driverRegister.html')
+# def driverRegister(request):
+#     return render(request, 'base/driverRegister.html')

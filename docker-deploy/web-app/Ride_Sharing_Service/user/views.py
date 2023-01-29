@@ -1,17 +1,30 @@
 from django.shortcuts import render
-from .models import Owner, Sharer
+from .models import Owner, Sharer, Driver
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
-
 
 # Create your views here.
 
 def UserHome(request):
     return render(request, 'user/UserHome.html')
 
-def DriverRegister(request):
-    return render(request, 'user/DriverRegister.html')
+# def DriverRegister(request):
+#     driver = Driver()
+#     # driver.
+#     return render(request, 'user/DriverRegister.html')
 
+class Driver_InfoForm(LoginRequiredMixin, CreateView): 
+    model = Driver
+    fields = ['Driver_Name',
+              'Vehicle_Type',
+              'Driver_License',
+              'Vehicle_Capacity',
+              'Special_Information',
+              ]
+
+    def form_valid(self, form):
+        form.instance.driver = self.request.user
+        return super().form_valid(form)
 
 class Owner_InfoForm(LoginRequiredMixin, CreateView):
     model = Owner

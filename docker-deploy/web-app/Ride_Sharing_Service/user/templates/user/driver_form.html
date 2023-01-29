@@ -1,0 +1,16 @@
+{%extends 'main.html'%}
+{%block content%}
+<h1>Driver: Enter driver information</h1>
+ <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom md-4">Please Fill Blanks</legend>
+                {{ form.as_p }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+{%endblock%}
