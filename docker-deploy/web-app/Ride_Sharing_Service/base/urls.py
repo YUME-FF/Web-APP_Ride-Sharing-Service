@@ -8,5 +8,4 @@ urlpatterns = [
     path('logout/',views.logout, name='logout'),
     path('profile/',views.profile, name='profile'),
     path('createAccount/',views.createAccount, name='createAccount'),
-    # path('driverRegister/',views.driverRegister,name='driverRegister')
 ]

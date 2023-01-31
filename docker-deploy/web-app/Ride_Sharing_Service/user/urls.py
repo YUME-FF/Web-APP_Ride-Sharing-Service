@@ -7,8 +7,8 @@ urlpatterns = [
     path('owner/', Owner_InfoForm.as_view(), name='Owner'),
     path('owner/history/', OwnerListView.as_view(), name='OwnerListView'),
     path('share/', Sharer_InfoForm.as_view(), name='Sharer'),
-    path('driverRegister/',Driver_InfoForm.as_view() , name='DriverRegister'),
+    path('driverRegister/', Driver_InfoForm.as_view(), name='DriverRegister'),
+    # path('driverRegister/',Driver_InfoForm.as_view() , name='DriverRegister'),
     path('driverSelect/',DriverListView.as_view() , name='DriverSelect'),
     path('driverSelect/driverOnProcess/',views.DriverOnProcess , name='DriverOnProcess'),
-
 ]
