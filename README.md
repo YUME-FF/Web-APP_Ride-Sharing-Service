@@ -15,6 +15,11 @@ Then go to http://vcm-30579.vm.duke.edu:8000/ or http://vcm-30900.vm.duke.edu:80
 - [Project Overview](#Project-Overview)
   - [Project Design](#Project-Design)
   - [Web Deployment](#Web-Deployment)
+- [Function](#Function)
+  - [Account](#Account)
+  - [Owner](#WOwner)
+  - [Sharer](#Sharer)
+  - [Driver](#Driver)
 
 # Project Overview
 ## Project Design
@@ -244,3 +249,36 @@ stateDiagram-v2
         CompleteButtom
     }
 ```
+
+# Function
+## Account
+
+- Create a user account
+- Login with a valid user account
+- Handle login failure with an an invalid user account
+- Logout from a user session
+
+## Owner
+
+- User should be able to register as a driver by entering their personal & vehicle info
+- User should be able to submit a ride request by specifying the required and any combination of the optional info
+- User should be able to make a selection to view any non-complete ride they belong to
+- User should be able to make a selection to edit any open ride they belong to
+- A ride owner should be able to edit the requested attributes of a ride until that ride is confirmed
+- User should be able to view all ride details for any open ride they belong to
+- User should be able to view all ride details + driver and vehicle details for any confirmed ride they belong to
+
+## Sharer
+
+- (Not Finish) User should be able to search for sharable, open ride requests (by destination, arrival window, and # of passengers)
+- (Not Finish) User should be able to join a ride returned in a search
+
+## Driver
+
+- (Not Finish) User should be able to view and edit their driver status as well as personal & vehicle info
+- (Not Finish) An email should be sent to the owner and any sharers of a ride once it is confirmed by a driver
+- A registered driver should be able to search for open ride requests (filtered by the driver's vehicle capacity and type / special info, if applicable)
+- A registered driver should be able to mark a selected ride (returned from a search) as confirmed (thus claiming and starting the ride)
+- A driver should be able to see a list of their confirmed rides
+- A driver should be able to select a confirmed ride and view all of the ride details
+- A driver should be able to edit a confirmed ride for the purpose of marking it complete after the ride is over
