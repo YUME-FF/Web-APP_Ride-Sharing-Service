@@ -1,5 +1,14 @@
 # Web-APP_Ride-Sharing-Service
 
+After ```git pull```, Go to ./docker-deploy/web-app/Ride_Sharing_Service/Ride_Sharing_Service/settings.py
+
+Change database based on your own
+
+Then back to last directory:
+```
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
 
 Go to ./docker-deploy/web-app/Ride_Sharing_Service/
 
