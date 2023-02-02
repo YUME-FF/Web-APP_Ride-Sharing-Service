@@ -18,21 +18,7 @@ def UserHome(request):
     return render(request, 'user/UserHome.html', context)
 
 
-# def DriverRegister(request):
-#     driver = Driver()
-#     # driver.
-#     return render(request, 'user/DriverRegister.html')
-
-class DriverListView(ListView):
-    template_name = 'user/driver_select.html'
-
-    def get_queryset(self):
-        return Owner.objects.filter().order_by('Arrival_Date_Time')
-
-
-def DriverOnProcess(request):
-    return render(request, 'user/driver_onProcess.html')
-
+# Owner
 
 class Owner_InfoForm(LoginRequiredMixin, CreateView):
     model = Owner
@@ -56,6 +42,38 @@ class OwnerListView(ListView):
         return Owner.objects.filter(owner=self.request.user).order_by('Arrival_Date_Time')
 
 
+class OwnerEditRequest(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Owner
+    fields = ['Destination_Address',
+              'Arrival_Date_Time',
+              'Number_of_Passenger',
+              'Vehicle_Type',
+              'Special_Request',
+              'Share_Or_Not',
+              'Max_Share_Num']
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        if self.request.user == self.get_object().owner:
+            return True
+        return False
+
+
+class OwnerDeleteRequest(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Owner
+    success_url = '/user/owner/history/'
+
+    def test_func(self):
+        if self.request.user == self.get_object().owner:
+            return True
+        return False
+
+
+# Sharer
+
 class Sharer_InfoForm(LoginRequiredMixin, CreateView):
     model = Sharer
     fields = ['Destination_Address',
@@ -68,6 +86,8 @@ class Sharer_InfoForm(LoginRequiredMixin, CreateView):
         form.instance.sharer = self.request.user
         return super().form_valid(form)
 
+
+# Driver
 
 class Driver_InfoForm(LoginRequiredMixin, CreateView):
     template_name = 'user/driverregister_form.html'
@@ -82,3 +102,43 @@ class Driver_InfoForm(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.driver = self.request.user
         return super().form_valid(form)
+
+
+class DriverSearchListView(ListView):
+    template_name = 'user/driversearch_list.html'
+
+    def get_queryset(self):
+        return Owner.objects.filter(Status='open',
+                                    Number_of_Passenger__lte=self.request.user.driver_set.last().Vehicle_Capacity,
+                                    Vehicle_Type__in=['N/A', self.request.user.driver_set.last().Vehicle_Type],
+                                    Special_Request__in=['N/A',
+                                                         self.request.user.driver_set.last().Special_Information],
+                                    ).exclude(
+            owner=self.request.user).order_by('Arrival_Date_Time')
+
+
+def DriverConfirm(request, rid):
+    driver = Driver.objects.filter(user=request.user.id).first()
+    ride = Owner.objects.filter(pk=rid).first()
+    ride.Status = 'ongoing'
+    ride.Driver_Name = request.user.username
+    ride.Driver_License = driver.Driver_License
+    ride.save()
+
+    return render(request, 'user/UserHome.html')
+
+
+class DriverProcessingListView(ListView):
+    template_name = 'user/driverprocessing_list.html'
+
+    def get_queryset(self):
+        return Owner.objects.filter(Status='ongoing',
+                                    Driver_Name=self.request.user.username).exclude(owner=self.request.user).order_by(
+            'Arrival_Date_Time')
+
+
+def DriverComplete(request, rid):
+    ride = Owner.objects.filter(pk=rid).first()
+    ride.status = 'complete'
+    ride.save()
+    return render(request, 'user/UserHome.html')

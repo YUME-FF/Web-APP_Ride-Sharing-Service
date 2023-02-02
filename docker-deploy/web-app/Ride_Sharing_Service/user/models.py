@@ -23,7 +23,10 @@ class Owner(models.Model):
     Share_Or_Not = models.BooleanField()
     Max_Share_Num = models.PositiveIntegerField(help_text='If you do not want to share please choose 0', default=0)
 
-    Status = models.CharField(default='Ongoing', max_length=20)
+    # open: driver not confirmed; (can be cancelled by owner)
+    # ongoing: driver confirmed;
+    # completed: driver confirmed;
+    Status = models.CharField(default='open', max_length=20)
     Sharers_Name = models.CharField(default='', max_length=50, blank=True)
 
     Driver_Name = models.CharField(default='', max_length=50, blank=True)
@@ -52,10 +55,10 @@ class Sharer(models.Model):
 class Driver(models.Model):
     driver = models.ForeignKey(User, on_delete=models.CASCADE)
     Driver_Name = models.CharField(max_length=20)
-    Vehicle_Type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='--')
+    Vehicle_Type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='N/A')
     Driver_License = models.CharField(default='', max_length=50)
     Vehicle_Capacity = models.PositiveIntegerField(default=1)
-    Special_Information = models.CharField(default='', max_length=100, blank=True)
+    Special_Information = models.CharField(default='N/A', max_length=100, blank=True)
 
     def __str__(self):
         return self.Driver_Name

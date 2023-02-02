@@ -2,7 +2,7 @@
 #customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: 80%;
 }
 
 #customers td, #customers th {
@@ -22,6 +22,7 @@
   color: white;
 }
 </style>
+
 {%extends 'main.html'%}
 {% load mathfilters %}
 {%block content%}
@@ -34,7 +35,6 @@
 <table id="customers">
     <thead>
     <tr>
-        <th>Status</th>
         <th>Confirm</th>
         <th>Ride Owner</th>
         <th>Destination Address</th>
@@ -42,27 +42,24 @@
         <th>Number of Passenger</th>
         <th>Vehicle Type</th>
         <th>Special Request</th>
-        <th>Passengers' Name</th>
         <th>Share Or Not</th>
+        <th>Sharers' Name</th>
         <th>Max Sharer Number</th>
     </tr>
     </thead>
     <tbody>
     {% for ride in object_list %}
     <tr>
-        <td>{{ ride.status }}</td>
-        <td><a href="{% url 'driver-confirm' ride.id %}">Confirm</a></td>
-    <td>{{ ride.owner.username }}</td>
-    <td>{{ ride.Destination_Address }}</td>
-    <td>{{ ride.Arrival_Date_Time|date:"m/d/Y P" }}</td>
-    <td>{{ ride.Number_of_Passenger }}</td>
-    <td>{{ ride.Vehicle_Type }}</td>
-    <td>{{ ride.Special_Request }}</td>
-    <td>{{ ride.Sharers_Name }}</td>
-    <td>{{ ride.Share_Or_Not }}</td>
-    <td>{{ ride.Max_Share_Num }}</td>
-    <td>{{ ride.Driver_Name }}</td>
-    <td>{{ ride.Driver_License }}</td>
+        <td><a href="{% url 'DriverConfirm' ride.id %}">Confirm</a></td>
+        <td>{{ ride.owner.username }}</td>
+        <td>{{ ride.Destination_Address }}</td>
+        <td>{{ ride.Arrival_Date_Time|date:"m/d/Y P" }}</td>
+        <td>{{ ride.Number_of_Passenger }}</td>
+        <td>{{ ride.Vehicle_Type }}</td>
+        <td>{{ ride.Special_Request }}</td>
+        <td>{{ ride.Share_Or_Not }}</td>
+        <td>{{ ride.Sharers_Name }}</td>
+        <td>{{ ride.Max_Share_Num }}</td>
     </tr>
     {% endfor %}
     </tbody>

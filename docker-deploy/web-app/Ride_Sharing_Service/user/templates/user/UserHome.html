@@ -40,12 +40,12 @@
 {% endif %}
 {% if identity == 'driver' %}
     <div class="Choice">
-        <a href="{% url 'DriverSelect' %}">Choose an order to complete </a>
+        <a href="{% url 'DriverSearchListView' %}">Search for orders</a>
 
     </div>
     <div class="Choice">
 
-        <a href="{% url 'DriverOnProcess' %}">Continue your last order </a>
+        <a href="{% url 'DriverProcessingListView' %}">See your ongoing order</a>
     </div>
 {% endif %}
 {%endblock%}

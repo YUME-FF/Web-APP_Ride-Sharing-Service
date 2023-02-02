@@ -1,19 +1,8 @@
-
-<script>
-  function myFunction()
-  {
-    
-    let flag = confirm("Do you want to process this order?");
-    if(flag){
-      window.location.href = "./driverOnProcess";
-    }
-  }
-  </script>
 <style>
 #customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: 80%;
 }
 
 #customers td, #customers th {
@@ -33,34 +22,44 @@
   color: white;
 }
 </style>
+
 {%extends 'main.html'%}
 {% load mathfilters %}
 {%block content%}
 <br>
     <p>
-        Here are the status of your order.
+        Here are the possible orders you are working on now.
     </p>
 <br>
 
 <table id="customers">
     <thead>
     <tr>
+        <th>Complete</th>
+        <th>Ride Owner</th>
         <th>Destination Address</th>
         <th>Arrival Date Time</th>
         <th>Number of Passenger</th>
+        <th>Vehicle Type</th>
         <th>Special Request</th>
-        <th>Order Select</th>
+        <th>Share Or Not</th>
+        <th>Sharers' Name</th>
+        <th>Max Sharer Number</th>
     </tr>
     </thead>
     <tbody>
     {% for ride in object_list %}
     <tr>
-    <td>{{ ride.Destination_Address }}</td>
-    <td>{{ ride.Arrival_Date_Time|date:"m/d/Y P" }}</td>
-    <td>{{ ride.Number_of_Passenger }}</td>
-    <td>{{ ride.Special_Request }}</td>
-    
-    <td><button onclick= "myFunction()">select</button></td>
+        <td><a href="{% url 'DriverComplete' ride.id %}">Complete</a></td>
+        <td>{{ ride.owner.username }}</td>
+        <td>{{ ride.Destination_Address }}</td>
+        <td>{{ ride.Arrival_Date_Time|date:"m/d/Y P" }}</td>
+        <td>{{ ride.Number_of_Passenger }}</td>
+        <td>{{ ride.Vehicle_Type }}</td>
+        <td>{{ ride.Special_Request }}</td>
+        <td>{{ ride.Share_Or_Not }}</td>
+        <td>{{ ride.Sharers_Name }}</td>
+        <td>{{ ride.Max_Share_Num }}</td>
     </tr>
     {% endfor %}
     </tbody>
