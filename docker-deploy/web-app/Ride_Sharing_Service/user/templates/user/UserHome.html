@@ -31,6 +31,10 @@
     </div>
 
     <div class="Choice">
+        <a href="{% url 'SharerListView' %}">As a sharer: Order History</a>
+    </div>
+
+    <div class="Choice">
         <a href="{% url 'OwnerListView' %}">As a passenger: Order History</a>
     </div>
 {% if identity != 'driver' %}

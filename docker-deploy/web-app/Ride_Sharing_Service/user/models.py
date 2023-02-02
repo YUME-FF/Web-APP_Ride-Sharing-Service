@@ -51,6 +51,10 @@ class Sharer(models.Model):
     def __str__(self):
         return self.Destination_Address
 
+    # Submit --> View ride Status
+    def get_absolute_url(self):
+        return reverse('SharerSearchListView')
+
 
 class Driver(models.Model):
     driver = models.ForeignKey(User, on_delete=models.CASCADE)

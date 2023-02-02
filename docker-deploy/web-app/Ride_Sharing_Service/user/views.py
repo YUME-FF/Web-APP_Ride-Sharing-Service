@@ -87,6 +87,49 @@ class Sharer_InfoForm(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+class SharerSearchListView(ListView):
+    template_name = 'user/sharersearch_list.html'
+
+    def get_queryset(self):
+        return Owner.objects.filter(Share_Or_Not=True,
+                                    Status='open',
+                                    Destination_Address=self.request.user.sharer_set.last().Destination_Address,
+                                    Arrival_Date_Time__gte=self.request.user.sharer_set.last().Earliest_Arrival_Time,
+                                    Arrival_Date_Time__lte=self.request.user.sharer_set.last().Latest_Arrival_Time,
+                                    Max_Share_Num__gte=self.request.user.sharer_set.last().Number_of_Passenger,
+                                    ).exclude(
+            owner=self.request.user).order_by('Arrival_Date_Time')
+
+
+class SharerListView(ListView):
+    template_name = 'user/sharer_list.html'
+
+    def get_queryset(self):
+        return Owner.objects.filter(Sharers_Name=self.request.user.username
+                                    ).exclude(
+            owner=self.request.user).exclude(Status='complete').order_by('Arrival_Date_Time')
+
+
+def join(request, rid):
+    ride = Owner.objects.filter(pk=rid).first()
+    rideSharer = Sharer.objects.filter(sharer=request.user.id).last()
+    ride.Status = 'open'
+    ride.Sharers_Name = request.user.username
+    ride.Number_of_Passenger = ride.Number_of_Passenger + rideSharer.Number_of_Passenger
+    ride.save()
+    return render(request, 'user/sharer_list.html')
+
+
+class SharerDeleteRequest(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Sharer
+    success_url = '/user/sharer/history/'
+
+    def test_func(self):
+        if self.request.user == self.get_object().owner:
+            return True
+        return False
+
+
 # Driver
 
 class Driver_InfoForm(LoginRequiredMixin, CreateView):
