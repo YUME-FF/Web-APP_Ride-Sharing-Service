@@ -279,8 +279,8 @@ stateDiagram-v2
 
 ## Sharer
 
-- (Not Finish) User should be able to search for sharable, open ride requests (by destination, arrival window, and # of passengers)
-- (Not Finish) User should be able to join a ride returned in a search
+- User should be able to search for sharable, open ride requests (by destination, arrival window, and # of passengers)
+- User should be able to join a ride returned in a search
 
 ## Driver
 
