@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 
 
 # Create your views here.
@@ -161,14 +162,20 @@ class DriverSearchListView(ListView):
 
 
 def DriverConfirm(request, rid):
-    driver = Driver.objects.filter(user=request.user.id).first()
+    driver = Driver.objects.filter(driver = request.user.id).first()
     ride = Owner.objects.filter(pk=rid).first()
     ride.Status = 'ongoing'
     ride.Driver_Name = request.user.username
     ride.Driver_License = driver.Driver_License
     ride.save()
-
-    return render(request, 'user/UserHome.html')
+    send_mail(
+    'Riding_Sharing_Service Order Warnning',
+    'Your order has been confirmed by a driver!',
+    'zjy1298892386@gmail.com',
+    ['' + ride.owner.email],
+    fail_silently=False,
+    )
+    return render(request, 'user/UserHome.html', {'identity': 'driver'})
 
 
 class DriverProcessingListView(ListView):
@@ -182,6 +189,26 @@ class DriverProcessingListView(ListView):
 
 def DriverComplete(request, rid):
     ride = Owner.objects.filter(pk=rid).first()
-    ride.status = 'complete'
+    ride.Status = 'complete'
     ride.save()
-    return render(request, 'user/UserHome.html')
+    return render(request, 'user/UserHome.html',{'identity': 'driver'})
+
+
+
+class DriverEditRequest(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Driver
+    fields = ['Driver_Name',
+              'Vehicle_Type',
+              'Driver_License',
+              'Vehicle_Capacity',
+              'Special_Information',
+              ]
+        
+    def form_valid(self, form):
+        form.instance.driver = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        if self.request.user == self.get_object().driver:
+            return True
+        return False

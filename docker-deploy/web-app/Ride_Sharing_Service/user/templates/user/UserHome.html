@@ -1,5 +1,5 @@
 <style>
-    .Choice {
+.Choice {
     background-color: DodgerBlue;
     color: white;
     border: 2px solid black;
@@ -7,7 +7,8 @@
     padding: 15px;
     height: 100px;
     width: 30%;
-}
+    }
+
 </style>
 {%extends 'main.html'%}
 
@@ -22,34 +23,41 @@
   <p>
      What do you want we do for you?
   </p>
-    <div class="Choice">
+    <div class="Choice" id="owner">
         <a href="{% url 'Owner' %}">Request an Ride</a>
     </div>
 
-    <div class="Choice">
+    <div class="Choice"id="owner">
         <a href="{% url 'Sharer' %}">Search for share</a>
     </div>
 
-    <div class="Choice">
+    <div class="Choice"id="owner">
         <a href="{% url 'SharerListView' %}">As a sharer: Order History</a>
     </div>
 
-    <div class="Choice">
+    <div class="Choice"id="owner">
         <a href="{% url 'OwnerListView' %}">As a passenger: Order History</a>
     </div>
 {% if identity != 'driver' %}
-    <div class="Choice">
+    <div class="Choice"id="owner">
         <a href="{% url 'DriverRegister' %}">To be a Driver?</a>
     </div>
 {% endif %}
 {% if identity == 'driver' %}
-    <div class="Choice">
+<hr>
+<h1>For Driver: </h1>
+
+    <div class="Choice"id="driver">
         <a href="{% url 'DriverSearchListView' %}">Search for orders</a>
 
     </div>
-    <div class="Choice">
+    <div class="Choice"id="driver">
 
         <a href="{% url 'DriverProcessingListView' %}">See your ongoing order</a>
+    </div>
+        <div class="Choice"id="driver">
+
+        <a href="{% url 'DriverEditRequest' user.id%}">Edit driver information</a>
     </div>
 {% endif %}
 {%endblock%}

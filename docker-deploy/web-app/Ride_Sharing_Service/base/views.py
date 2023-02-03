@@ -6,7 +6,8 @@ from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, logout, login
-
+from django.forms import EmailField
+from .models import User
 rooms = [
     {'id': 1, 'name': 'Lets python'},
     {'id': 2, 'name': 'Lets Django'},
@@ -39,7 +40,20 @@ def logout(request):
 def profile(request):
     return render(request, 'base/profile.html')
 
+class UserCreationForm(UserCreationForm):
+    email = EmailField(required=True)
 
+    class Meta:
+        model = User
+        fields = ("username", "email", "password1", "password2")
+
+    def save(self, commit=True):
+        user = super(UserCreationForm, self).save(commit=False)
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+        return user
+    
 def createAccount(request):
     form = UserCreationForm()
     if request.method == 'POST':
@@ -53,3 +67,4 @@ def createAccount(request):
         else:
             messages.error(request, 'Please enter correct format')
     return render(request, 'base/login.html', {'form': form})
+

@@ -3,8 +3,7 @@ from django.urls import path
 from . import views
 from .views import Owner_InfoForm, OwnerListView, OwnerEditRequest, OwnerDeleteRequest, \
     Sharer_InfoForm, SharerSearchListView, SharerListView, SharerDeleteRequest,\
-    Driver_InfoForm, DriverSearchListView, DriverProcessingListView
-
+    Driver_InfoForm, DriverSearchListView, DriverProcessingListView, DriverEditRequest
 urlpatterns = [
     path('', views.UserHome, name='UserHome'),
     path('owner/', Owner_InfoForm.as_view(), name='Owner'),
@@ -23,4 +22,6 @@ urlpatterns = [
     path('driverProcessingListView/', DriverProcessingListView.as_view() , name='DriverProcessingListView'),
     path('<int:rid>/driverconfirm', views.DriverConfirm , name='DriverConfirm'),
     path('<int:rid>/drivercomplete', views.DriverComplete , name='DriverComplete'),
+    path('<int:pk>/driverInformEdit', DriverEditRequest.as_view(), name='DriverEditRequest'),
+
 ]

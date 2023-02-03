@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-9aqwu-93ty!*jrqu3@^db$*t36_027r2x4_n=#ybf66!vtb)4%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['vcm-30579.vm.duke.edu','vcm-30900.vm.duke.edu','127.0.0.1']
+ALLOWED_HOSTS = ['vcm-30579.vm.duke.edu','vcm-30900.vm.duke.edu','127.0.0.1','localhost']
 
 
 # Application definition
@@ -82,14 +82,13 @@ WSGI_APPLICATION = 'Ride_Sharing_Service.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': 'Riding_Sharing_Service',
+        'USER':'jz423',
+        'PASSWORD': 'zjY1298892386',
+        'HOST':'127.0.0.1',
+        'PORT':'5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -131,3 +130,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#gmail_send/settings.py
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'zjy1298892386@gmail.com'
+EMAIL_HOST_PASSWORD = 'gqpfufmssoxnyvsv' #past the key or password app here
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'default from email'
