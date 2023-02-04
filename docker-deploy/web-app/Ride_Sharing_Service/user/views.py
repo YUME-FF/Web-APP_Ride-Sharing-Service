@@ -195,7 +195,8 @@ def DriverComplete(request, rid):
 
 
 
-class DriverEditRequest(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class DriverEditRequest(LoginRequiredMixin, UpdateView):    
+    template_name = 'user/driver_form.html'
     model = Driver
     fields = ['Driver_Name',
               'Vehicle_Type',
@@ -203,12 +204,20 @@ class DriverEditRequest(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
               'Vehicle_Capacity',
               'Special_Information',
               ]
-        
+
     def form_valid(self, form):
         form.instance.driver = self.request.user
         return super().form_valid(form)
-
+    
     def test_func(self):
         if self.request.user == self.get_object().driver:
             return True
         return False
+
+    lookup_field = 'id'
+    success_url = '/user'
+    def get_object(self, *args, **kwargs):
+        kwargs = self.kwargs
+        kw_id = kwargs.get('id')
+        return User.objects.get(id=kw_id)
+    

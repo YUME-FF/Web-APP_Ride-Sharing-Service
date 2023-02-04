@@ -1,63 +1,169 @@
 <style>
-.Choice {
-    background-color: DodgerBlue;
-    color: white;
-    border: 2px solid black;
-    margin: 20px;
-    padding: 15px;
-    height: 100px;
-    width: 30%;
+    body {
+        background: url("http://www.wohn-blogger.de/wp-content/themes/itheme2/skins/gray/images/body-bg.png") repeat scroll 0 0 #D1D1D1;
+        color: #666666;
     }
+.driver_bar{
+    position:relative;
+    left:0;
+    width:100%;
+    text-align: center;
+    color: #b48608; font-family: 'Droid serif', serif; font-size: 36px; font-weight: 400; font-style: italic; line-height: 44px; margin: 0 0 12px; text-align: center;
+}
 
+h1 { color: #b48608; font-family: 'Droid serif', serif; font-size: 36px; font-weight: 400; font-style: italic; line-height: 44px; margin: 0 0 12px; text-align: center; }
+
+
+h2{ color: #b48608; font-family: 'Droid serif', serif; font-size: 36px; font-weight: 400; font-style: italic; line-height: 44px; margin: 0 0 12px; text-align: center; }
 </style>
+
+
 {%extends 'main.html'%}
 
 {%block content%}
 
 <h1>Welcome to our Ride-Sharing Service System!</h1>
-
   <p>
      Welcome {{request.user}}!
   </p>
-  <a href="{% url 'profile' %}">Profile</a>
+  <!-- <a href="{% url 'profile' %}">Profile</a> -->
   <p>
      What do you want we do for you?
   </p>
-    <div class="Choice" id="owner">
+    <!-- <div class="Choice" id="owner">
         <a href="{% url 'Owner' %}">Request an Ride</a>
+    </div> -->
+    &nbsp;
+    <div>
+        <div class="driver_bar">
+            <hr>
+            <h2>For User(Both owner and sharer): </h2>
+            &nbsp;
+        </div>
+    <div class="row row-cols-3 row-cols-md-2 g-4">
+    <div class="col">
+        <div class="card text-bg-warning mb-3">
+            <!-- <img src="" class="card-img-top"> -->
+            <div class="card-body">
+            <h5 class="card-title">Want a ride?</h5>
+            <hr>
+            <p class="card-text">Both owner and driver can request a ride</p>
+            <a href="{% url 'Owner' %}" class="btn btn-primary">Request an Ride</a>
+            </div>
+        </div>
     </div>
 
-    <div class="Choice"id="owner">
+    <!-- <div class="Choice"id="owner">
         <a href="{% url 'Sharer' %}">Search for share</a>
+    </div> -->
+    <div class="col">
+        <div class="card text-bg-secondary mb-3">
+        <!-- <img src="" class="card-img-top"> -->
+        <div class="card-body">
+          <h5 class="card-title">Want to share a ride?</h5>
+          <hr>
+          <p class="card-text">You can search a ride here to find a partner!</p>
+          <a href="{% url 'Sharer' %}" class="btn btn-primary">Search for share</a>
+        </div>
+      </div>
     </div>
-
-    <div class="Choice"id="owner">
+    <!-- <div class="Choice"id="owner">
         <a href="{% url 'SharerListView' %}">As a sharer: Order History</a>
+    </div> -->
+    <div class="col">
+        <div class="card card text-bg-success mb-3" >
+        <!-- <img src="" class="card-img-top"> -->
+        <div class="card-body">
+          <h5 class="card-title">For Shares, order history</h5>
+          <hr>
+          <p class="card-text">This is the place where you can find you order history</p>
+          <a href="{% url 'SharerListView' %}" class="btn btn-primary">Order History</a>
+        </div>
+      </div>
     </div>
-
-    <div class="Choice"id="owner">
+    <!-- <div class="Choice"id="owner">
         <a href="{% url 'OwnerListView' %}">As a passenger: Order History</a>
+    </div> -->
+    <div class="col">
+        <div class="card text-bg-danger mb-3">
+        <!-- <img src="" class="card-img-top"> -->
+        <div class="card-body">
+          <h5 class="card-title">For passenger, not a sharer, here you can find you order history</h5>
+          <hr>
+          <p class="card-text">This is the place where you can find you order history</p>
+          <a href="{% url 'OwnerListView' %}" class="btn btn-primary">Order History</a>
+        </div>
+      </div>
     </div>
 {% if identity != 'driver' %}
-    <div class="Choice"id="owner">
+    <!-- <div class="Choice"id="owner">
         <a href="{% url 'DriverRegister' %}">To be a Driver?</a>
+    </div> -->
+    <div class="card text-bg-dark mb-3" style="width: 18rem;">
+        <!-- <img src="" class="card-img-top"> -->
+        <div class="card-body">
+          <h5 class="card-title">Become a Driver</h5>
+          <hr>
+          <p class="card-text">Do you want to be a driver to pick up passengers? please click the button!</p>
+          <a href="{% url 'DriverRegister' %}" class="btn btn-primary">Become a driver</a>
+        </div>
+      </div>
     </div>
 {% endif %}
+</div>
+<div>
 {% if identity == 'driver' %}
-<hr>
-<h1>For Driver: </h1>
 
-    <div class="Choice"id="driver">
+    <!-- <div class="Choice"id="driver">
         <a href="{% url 'DriverSearchListView' %}">Search for orders</a>
-
+    </div> -->
+    &nbsp;
+    <div class="driver_bar">
+        <hr>
+        <h2>For Driver: </h2>
+        &nbsp;
     </div>
-    <div class="Choice"id="driver">
-
-        <a href="{% url 'DriverProcessingListView' %}">See your ongoing order</a>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+        <div class="card text-bg-info mb-3">
+            <!-- <img src="" class="card-img-top"> -->
+            <div class="card-body">
+            <h5 class="card-title">Search Order</h5>
+            <hr>
+            <p class="card-text">Now you are a driver, you can search any orders here if you meet passenger's requirement</p>
+            <a href="{% url 'DriverSearchListView'  %}" class="btn btn-primary">Search for orders</a>
+            </div>
+        </div>
     </div>
-        <div class="Choice"id="driver">
-
-        <a href="{% url 'DriverEditRequest' user.id%}">Edit driver information</a>
+        <!-- <div class="Choice"id="driver">
+            <a href="{% url 'DriverProcessingListView' %}">See your ongoing order</a>
+        </div> -->
+    <div class="col">
+        <div class="card text-bg-light mb-3">
+            <!-- <img src="" class="card-img-top"> -->
+            <div class="card-body">
+            <h5 class="card-title">Continue Order</h5>
+            <hr>
+            <p class="card-text">Forget your previous undone order? Click here to continue your previous order</p>
+            <a href="{% url 'DriverProcessingListView'  %}" class="btn btn-primary">Continue order</a>
+            </div>
+        </div>
+    </div>
+        <!-- <div class="Choice"id="driver">
+            <a href="{% url 'DriverEditRequest' user.id %}">Edit driver information</a>
+        </div> -->
+    <div class="col">
+    <div class="card text-bg-dark mb-3">
+        <!-- <img src="" class="card-img-top"> -->
+        <div class="card-body">
+        <h5 class="card-title">Edit Information</h5>
+        <hr>
+        <p class="card-text">Any changes to your car? Please click here to update your information</p>
+        <a href="{% url 'DriverEditRequest' user.id %}" class="btn btn-primary">Edit driver information</a>
+        </div>
+    </div>
+    </div>
     </div>
 {% endif %}
+</div>
 {%endblock%}

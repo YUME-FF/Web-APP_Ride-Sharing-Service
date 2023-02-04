@@ -22,6 +22,6 @@ urlpatterns = [
     path('driverProcessingListView/', DriverProcessingListView.as_view() , name='DriverProcessingListView'),
     path('<int:rid>/driverconfirm', views.DriverConfirm , name='DriverConfirm'),
     path('<int:rid>/drivercomplete', views.DriverComplete , name='DriverComplete'),
-    path('<int:pk>/driverInformEdit', DriverEditRequest.as_view(), name='DriverEditRequest'),
+    path('driverEditRequest/<int:id>', DriverEditRequest.as_view(), name='DriverEditRequest'),
 
 ]

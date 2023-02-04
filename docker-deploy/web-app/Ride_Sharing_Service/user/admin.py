@@ -3,4 +3,3 @@ from .models import Owner,Driver
 
 admin.site.register(Owner)
 admin.site.register(Driver)
-
