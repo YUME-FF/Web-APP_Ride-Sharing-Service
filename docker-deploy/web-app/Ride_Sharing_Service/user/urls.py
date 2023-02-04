@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 from .views import Owner_InfoForm, OwnerListView, OwnerEditRequest, OwnerDeleteRequest, \
     Sharer_InfoForm, SharerSearchListView, SharerListView, SharerDeleteRequest,\
-    Driver_InfoForm, DriverSearchListView, DriverProcessingListView, DriverEditRequest
+    Driver_InfoForm, DriverSearchListView, DriverProcessingListView, DriverListView
 urlpatterns = [
     path('', views.UserHome, name='UserHome'),
     path('owner/', Owner_InfoForm.as_view(), name='Owner'),
@@ -18,10 +18,10 @@ urlpatterns = [
     path('sharer/SearchListView/<int:rid>/join/', views.join, name='SharerJoin'),
 
     path('driverRegister/', Driver_InfoForm.as_view(), name='DriverRegister'),
-    path('driverSearchListView/', DriverSearchListView.as_view() , name='DriverSearchListView'),
-    path('driverProcessingListView/', DriverProcessingListView.as_view() , name='DriverProcessingListView'),
-    path('<int:rid>/driverconfirm', views.DriverConfirm , name='DriverConfirm'),
-    path('<int:rid>/drivercomplete', views.DriverComplete , name='DriverComplete'),
-    path('driverEditRequest/<int:id>', DriverEditRequest.as_view(), name='DriverEditRequest'),
-
+    path('driver/SearchListView/', DriverSearchListView.as_view(), name='DriverSearchListView'),
+    path('driver/ProcessingListView/', DriverProcessingListView.as_view() , name='DriverProcessingListView'),
+    path('driver/<int:rid>/confirm', views.DriverConfirm , name='DriverConfirm'),
+    path('driver/<int:rid>/complete', views.DriverComplete , name='DriverComplete'),
+    path('driver/info/', views.driver_info, name='driver'),
+    path('driver/history', DriverListView.as_view(), name='DriverListView'),
 ]

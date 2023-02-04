@@ -132,6 +132,34 @@ class SharerDeleteRequest(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 # Driver
+class DriverUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Driver
+        fields = ['Driver_Name',
+                  'Vehicle_Type',
+                  'Driver_License',
+                  'Vehicle_Capacity',
+                  'Special_Information',
+                  ]
+
+
+def driver_info(request):
+    if request.method == 'POST':
+        form = DriverUpdateForm(request.POST, instance=request.user.driver_set.last())
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('driver')
+
+    else:
+        form = DriverUpdateForm(instance=request.user.driver_set.last())
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'user/driverregister_form.html', context)
+
 
 class Driver_InfoForm(LoginRequiredMixin, CreateView):
     template_name = 'user/driverregister_form.html'
@@ -162,18 +190,18 @@ class DriverSearchListView(ListView):
 
 
 def DriverConfirm(request, rid):
-    driver = Driver.objects.filter(driver = request.user.id).first()
+    driver = Driver.objects.filter(driver=request.user.id).first()
     ride = Owner.objects.filter(pk=rid).first()
     ride.Status = 'ongoing'
     ride.Driver_Name = request.user.username
     ride.Driver_License = driver.Driver_License
     ride.save()
     send_mail(
-    'Riding_Sharing_Service Order Warnning',
-    'Your order has been confirmed by a driver!',
-    'zjy1298892386@gmail.com',
-    ['' + ride.owner.email],
-    fail_silently=False,
+        'Riding_Sharing_Service Order Warnning',
+        'Your order has been confirmed by a driver!',
+        'zjy1298892386@gmail.com',
+        ['' + ride.owner.email],
+        fail_silently=False,
     )
     return render(request, 'user/UserHome.html', {'identity': 'driver'})
 
@@ -191,33 +219,14 @@ def DriverComplete(request, rid):
     ride = Owner.objects.filter(pk=rid).first()
     ride.Status = 'complete'
     ride.save()
-    return render(request, 'user/UserHome.html',{'identity': 'driver'})
+    return render(request, 'user/UserHome.html', {'identity': 'driver'})
 
 
+class DriverListView(ListView):
+    template_name = 'user/driver_list.html'
 
-class DriverEditRequest(LoginRequiredMixin, UpdateView):    
-    template_name = 'user/driver_form.html'
-    model = Driver
-    fields = ['Driver_Name',
-              'Vehicle_Type',
-              'Driver_License',
-              'Vehicle_Capacity',
-              'Special_Information',
-              ]
-
-    def form_valid(self, form):
-        form.instance.driver = self.request.user
-        return super().form_valid(form)
-    
-    def test_func(self):
-        if self.request.user == self.get_object().driver:
-            return True
-        return False
-
-    lookup_field = 'id'
-    success_url = '/user'
-    def get_object(self, *args, **kwargs):
-        kwargs = self.kwargs
-        kw_id = kwargs.get('id')
-        return User.objects.get(id=kw_id)
-    
+    def get_queryset(self):
+        return Owner.objects.filter(Status='complete',
+                                    Driver_License=self.request.user.driver_set.last().Driver_License,
+                                   ).exclude(
+            owner=self.request.user).order_by('Arrival_Date_Time')

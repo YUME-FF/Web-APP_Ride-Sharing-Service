@@ -123,7 +123,7 @@ h2{ color: #b48608; font-family: 'Droid serif', serif; font-size: 36px; font-wei
         <h2>For Driver: </h2>
         &nbsp;
     </div>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-2 row-cols-md-2 g-4">
     <div class="col">
         <div class="card text-bg-info mb-3">
             <!-- <img src="" class="card-img-top"> -->
@@ -150,7 +150,21 @@ h2{ color: #b48608; font-family: 'Droid serif', serif; font-size: 36px; font-wei
         </div>
     </div>
         <!-- <div class="Choice"id="driver">
-            <a href="{% url 'DriverEditRequest' user.id %}">Edit driver information</a>
+            <a href="{% url 'DriverListView'%}">Order History</a>
+        </div> -->
+    <div class="col">
+    <div class="card text-bg-success mb-3">
+        <!-- <img src="" class="card-img-top"> -->
+        <div class="card-body">
+        <h5 class="card-title">Order History</h5>
+        <hr>
+        <p class="card-text">Want to see your Order History? Please click here.</p>
+            <a href="{% url 'DriverListView'%}" class="btn btn-primary">Order History</a>
+        </div>
+    </div>
+    </div>
+        <!-- <div class="Choice"id="driver">
+            <a href="{% url 'driver'%}">Edit driver information</a>
         </div> -->
     <div class="col">
     <div class="card text-bg-dark mb-3">
@@ -159,10 +173,11 @@ h2{ color: #b48608; font-family: 'Droid serif', serif; font-size: 36px; font-wei
         <h5 class="card-title">Edit Information</h5>
         <hr>
         <p class="card-text">Any changes to your car? Please click here to update your information</p>
-        <a href="{% url 'DriverEditRequest' user.id %}" class="btn btn-primary">Edit driver information</a>
+            <a href="{% url 'driver'%}" class="btn btn-primary">Edit driver information</a>
         </div>
     </div>
     </div>
+
     </div>
 {% endif %}
 </div>

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.http import HttpResponse
 from django.contrib import messages
+from django import forms
 from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.forms import UserCreationForm
@@ -36,9 +37,30 @@ def logout(request):
     django_logout(request)
     return redirect('home')
 
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username',
+                  'email']
 
 def profile(request):
-    return render(request, 'base/profile.html')
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Your account has been updated!')
+
+    else:
+        form = UserUpdateForm(instance=request.user)
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'base/profile.html', context)
+
 
 class UserCreationForm(UserCreationForm):
     email = EmailField(required=True)
