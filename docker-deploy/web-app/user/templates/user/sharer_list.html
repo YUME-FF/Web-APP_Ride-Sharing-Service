@@ -38,6 +38,7 @@
     <thead class="table-dark">
     <tr>
         <th>Status</th>
+         <th>Edit</th>
         <th>Delete</th>
         <th>Ride Owner</th>
         <th>Destination Address</th>
@@ -57,8 +58,10 @@
     <td>{{ ride.Status }}</td>
 
         {% if ride.Status == 'open' %}
+             <td><button onclick="window.location.href='{% url 'SharerEditRequest' ride.id %}'">Edit</button></td>
              <td><button onclick="window.location.href='{% url 'SharerDeleteRequest' ride.id %}'">Delete</button></td>
         {% else %}
+            <td>-</td>
             <td>-</td>
         {% endif %}
 

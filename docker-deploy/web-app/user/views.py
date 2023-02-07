@@ -118,8 +118,24 @@ def join(request, rid):
     ride.Sharers_Name = request.user.username
     ride.Number_of_Passenger = ride.Number_of_Passenger + rideSharer.Number_of_Passenger
     ride.save()
-    return render(request, 'user/sharer_list.html')
+    return render(request, 'user/UserHome.html', {'identity': 'driver'})
 
+class SharerEditRequest(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Sharer
+    fields = ['Destination_Address',
+              'Earliest_Arrival_Time',
+              'Latest_Arrival_Time',
+              'Number_of_Passenger',
+              ]
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        if self.request.user == self.get_object().owner:
+            return True
+        return False
 
 class SharerDeleteRequest(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Sharer
@@ -149,7 +165,7 @@ def driver_info(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('driver')
+            return redirect('UserHome')
 
     else:
         form = DriverUpdateForm(instance=request.user.driver_set.last())
