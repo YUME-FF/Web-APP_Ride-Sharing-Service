@@ -1,6 +1,6 @@
 # Web-APP_Ride-Sharing-Service
 
-After ```git pull```, Go to ./docker-deploy/web-app/Ride_Sharing_Service/Ride_Sharing_Service/settings.py
+After ```git pull```, Go to ./docker-deploy/web-app/Ride_Sharing_Service/settings.py
 
 Change database based on your own
 
