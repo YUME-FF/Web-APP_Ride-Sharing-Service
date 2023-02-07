@@ -1,0 +1,113 @@
+Danger Log
+
+-------------------------------------------------------------------
+01/24/2023
+-------------------------------------------------------------------
+We spend days to finish "Project Design V1" and "Web Deployment V1" 
+using UML tools in README.md to specify the overview of our project, 
+including what a driver, owner or sharer should do, using arrow to 
+represent  it.
+
+In Project Overview, Project Design describes interrelated things of 
+interest in a specific domain of knowledge, which is composed of 
+entity types (which classify the things of interest) and specifies 
+relationships that can exist between entities (instances of those 
+entity types).
+
+In our Project Design, Relationships between entities are represented 
+by lines with end markers representing cardinality.We also design 
+the foreign keys as attributes, to represent relational table structures.
+
+In Web Deployment, we abstract our relationship between html to 
+describe the behavior of systems.
+
+
+We wonder:
+1) The home.html should be divide to UserHome+DriverHome or
+OwnerHome+SharerHome+DriverHome.
+
+
+-------------------------------------------------------------------
+01/25/2023
+-------------------------------------------------------------------
+We finsh our CreatAccount and Login/Logout function.
+
+1) It is dangerous to show plain password.
+Thus we change to use Django templete in erss-hwk1-zf70-jz423/web-app
+/base, it only used to handle user basement implementations.
+
+2) When designning the form for the user the log in or register, 
+firstly we simply used HTML and specified it using tag: label, input. 
+At that time we did not realize that there is alreay a form for user 
+to create and login in django framework.
+
+3) When CreatAccout, how directly come up a chance to register to be
+a driver, it may be convenient for user. 
+
+
+-------------------------------------------------------------------
+01/27/2023
+-------------------------------------------------------------------
+We create UserHome.html, and in that html, user and request a ride,
+and see all order he has in OrderHistory(Owner_list.html)
+User can Edit and Delete the order.
+
+To ensure they can only edit and delete order in "open" Status, we
+add "Status" in the model of Owner to help do it.
+
+
+-------------------------------------------------------------------
+01/28/2023
+-------------------------------------------------------------------
+We create DriverRegister, and:
+
+1) If user is a driver, he can do what driver can do.
+2) If user is not a driver, he only can see "To be a driver?" and
+other userChoices.
+
+We add a identity to recoginze whether the user is a driver.
+
+We reDesign our web to be only UserHome.html but not either UserHome+
+DriverHome or OwnerHome+SharerHome+DriverHome. By using "identity",
+we show different choices between users and drivers.
+
+After designning the driver register. When a user becomes a driver, 
+he/she cannot see driver operation buttons.
+I looked for the bugs for some time, finding out that I did not feed 
+the if-else block in the UserHome to check if the current user is the 
+driver. So in views.py, I returned a dictionary that tell the UserHome 
+the current user is the driver, and used that outcome in the if-else 
+block.
+
+-------------------------------------------------------------------
+01/30/2023
+-------------------------------------------------------------------
+1) We add LoginRequiredMixin to each class to make sure that user can
+only implement after login.
+
+2) Replaced sqlit3 with postgresql, we forget set it in settings.py 
+previous days. But some problems occurs, so I uninstall the postgresql
+and reinstall again and again. Finally it did work.
+
+
+-------------------------------------------------------------------
+02/02/2023
+-------------------------------------------------------------------
+1) Using bootstrap to render our website, finding it really useful 
+and saving a lot of time. 
+2) When writing CSS, images upload failed. Thus we only use basic
+designing elements to design our web.
+
+
+-------------------------------------------------------------------
+02/04/2023
+-------------------------------------------------------------------
+When sharer Edit their order, there could be:
+1) They may change the arrival time that not in the range of Owner
+previously set.
+2) When Sharer change their passage number, the order did not update.
+
+Thus, we decide:
+If sharer want to edit their order, they should first delete the order,
+and then search & rejoin.
+
