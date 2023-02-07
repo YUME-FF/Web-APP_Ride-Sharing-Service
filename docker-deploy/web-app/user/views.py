@@ -120,31 +120,31 @@ def join(request, rid):
     ride.save()
     return render(request, 'user/UserHome.html', {'identity': 'driver'})
 
+
 class SharerEditRequest(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Sharer
-    fields = ['Destination_Address',
-              'Earliest_Arrival_Time',
+    fields = ['Earliest_Arrival_Time',
               'Latest_Arrival_Time',
               'Number_of_Passenger',
               ]
 
     def form_valid(self, form):
-        form.instance.owner = self.request.user
+        form.instance.sharer = self.request.user
         return super().form_valid(form)
 
     def test_func(self):
-        if self.request.user == self.get_object().owner:
+        if self.request.user == self.get_object().sharer:
             return True
         return False
 
-class SharerDeleteRequest(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Sharer
-    success_url = '/user/sharer/history/'
-
-    def test_func(self):
-        if self.request.user == self.get_object().owner:
-            return True
-        return False
+def SharerDeleteRequest(request, rid):
+    ride = Owner.objects.filter(pk=rid).first()
+    share_person = Sharer.objects.filter(sharer=request.user.id).last()
+    ride.Status = 'open'
+    ride.Sharers_Name = ''
+    ride.Number_of_Passenger = ride.Number_of_Passenger - share_person.Number_of_Passenger
+    ride.save()
+    return render(request, 'user/UserHome.html', {'identity': 'driver'})
 
 
 # Driver
@@ -244,5 +244,5 @@ class DriverListView(ListView):
     def get_queryset(self):
         return Owner.objects.filter(Status='complete',
                                     Driver_License=self.request.user.driver_set.last().Driver_License,
-                                   ).exclude(
+                                    ).exclude(
             owner=self.request.user).order_by('Arrival_Date_Time')

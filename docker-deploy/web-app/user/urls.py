@@ -2,7 +2,7 @@ from django.urls import path
 
 from . import views
 from .views import Owner_InfoForm, OwnerListView, OwnerEditRequest, OwnerDeleteRequest, \
-    Sharer_InfoForm, SharerSearchListView, SharerListView, SharerDeleteRequest, SharerEditRequest,\
+    Sharer_InfoForm, SharerSearchListView, SharerListView, SharerEditRequest,\
     Driver_InfoForm, DriverSearchListView, DriverProcessingListView, DriverListView
 urlpatterns = [
     path('', views.UserHome, name='UserHome'),
@@ -14,7 +14,7 @@ urlpatterns = [
     path('sharer/', Sharer_InfoForm.as_view(), name='Sharer'),
     path('sharer/history/', SharerListView.as_view(), name='SharerListView'),
     path('sharer/history/<int:pk>/edit', SharerEditRequest.as_view(), name='SharerEditRequest'),
-    path('sharer/history/<int:pk>/delete', SharerDeleteRequest.as_view(), name='SharerDeleteRequest'),
+    path('sharer/history/<int:rid>/delete', views.SharerDeleteRequest, name='SharerDeleteRequest'),
     path('sharer/SearchListView/', SharerSearchListView.as_view(), name='SharerSearchListView'),
     path('sharer/SearchListView/<int:rid>/join/', views.join, name='SharerJoin'),
 
