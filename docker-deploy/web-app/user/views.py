@@ -121,28 +121,12 @@ def join(request, rid):
     return render(request, 'user/UserHome.html', {'identity': 'driver'})
 
 
-class SharerEditRequest(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Sharer
-    fields = ['Earliest_Arrival_Time',
-              'Latest_Arrival_Time',
-              'Number_of_Passenger',
-              ]
-
-    def form_valid(self, form):
-        form.instance.sharer = self.request.user
-        return super().form_valid(form)
-
-    def test_func(self):
-        if self.request.user == self.get_object().sharer:
-            return True
-        return False
-
 def SharerDeleteRequest(request, rid):
     ride = Owner.objects.filter(pk=rid).first()
-    share_person = Sharer.objects.filter(sharer=request.user.id).last()
+    rideSharer = Sharer.objects.filter(sharer=request.user.id).last()
     ride.Status = 'open'
     ride.Sharers_Name = ''
-    ride.Number_of_Passenger = ride.Number_of_Passenger - share_person.Number_of_Passenger
+    ride.Number_of_Passenger = ride.Number_of_Passenger - rideSharer.Number_of_Passenger
     ride.save()
     return render(request, 'user/UserHome.html', {'identity': 'driver'})
 
