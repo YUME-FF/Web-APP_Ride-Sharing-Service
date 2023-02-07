@@ -5,6 +5,10 @@ services:
       image: postgres
       volumes:
             - data-volume:/var/lib/postgresql/data
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: 123456
+        POSTGRES_DB: db
   web-init:
       build: ./web-app
       command: /code/initserver.sh
