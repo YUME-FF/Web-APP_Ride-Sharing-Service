@@ -24,6 +24,7 @@ Then go to http://vcm-30579.vm.duke.edu:8000/ or http://vcm-30900.vm.duke.edu:80
 - [Project Overview](#Project-Overview)
   - [Project Design](#Project-Design)
   - [Web Deployment](#Web-Deployment)
+  - [Final Design](#Final-Design)
 - [Function](#Function)
   - [Account](#Account)
   - [Owner](#WOwner)
@@ -259,6 +260,52 @@ stateDiagram-v2
     }
 ```
 
+## Final Design
+
+```mermaid
+stateDiagram-v2
+
+    Guest(Home.html) --> Login.html
+    Guest(Home.html) --> CreateAccount.html
+    CreateAccount.html --> Login.html
+    
+    Login.html --> UserHome.html
+    state UserHome.html{
+        AllUser --> profile.html
+        AllUser --> DriverRegister_form 
+        AllUser --> RequestOrder
+        AllUser --> SearchOrder
+        AllUser --> Owner_List.html
+        AllUser --> Sharer_List.html
+        --
+        If_is_Driver
+        If_is_Driver --> EditDriverProfile
+        If_is_Driver --> SearchRequest
+        If_is_Driver --> ConfirmRequest
+        If_is_Driver --> OngoingOrder
+        If_is_Driver --> CompleteRequest
+    }
+
+    State Owner_List.html{
+        AllOrderHistory --> Edit_Ride
+        AllOrderHistory --> Delete_Ride
+        --
+        OrderInfo --> OwnerInfo
+        OrderInfo --> ShareInfo
+    }
+
+    State Sharer_List.html{
+        AllOrderHistory_ --> Edit_Ride_
+        AllOrderHistory_ --> Delete_Ride_
+        --
+        OrderInfo_ --> OwnerInfo_
+        OrderInfo_ --> ShareInfo_
+    }
+    
+
+    UserHome.html --> Logout.html
+```
+
 # Function
 ## Account
 
@@ -284,8 +331,8 @@ stateDiagram-v2
 
 ## Driver
 
-- (Not Finish) User should be able to view and edit their driver status as well as personal & vehicle info
-- (Not Finish) An email should be sent to the owner and any sharers of a ride once it is confirmed by a driver
+- User should be able to view and edit their driver status as well as personal & vehicle info
+- An email should be sent to the owner and any sharers of a ride once it is confirmed by a driver
 - A registered driver should be able to search for open ride requests (filtered by the driver's vehicle capacity and type / special info, if applicable)
 - A registered driver should be able to mark a selected ride (returned from a search) as confirmed (thus claiming and starting the ride)
 - A driver should be able to see a list of their confirmed rides
